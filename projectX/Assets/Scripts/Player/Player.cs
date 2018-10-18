@@ -10,13 +10,19 @@ public class Player : MonoBehaviour{
 
 	// Use this for initialization
 	void Start (){
-		primaryWeapon.tag = tag;
-		grenade.tag = tag;
+		if (primaryWeapon != null){
+			primaryWeapon.tag = tag;
+		}
+
+		if (grenade != null){
+			grenade.tag = tag;
+		}
 	}
 
-	void FixedUpdate(){
+	void Update(){
 		checkFire();
 		checkMove();
+		transform.LookAt(aim);
 	}
 
 	private void checkFire(){
@@ -26,7 +32,7 @@ public class Player : MonoBehaviour{
 			primaryWeapon.autoFire(aim.position);
 		} else if (Input.GetButton("Fire2")){
 			primaryWeapon.aim(aim.position);
-		} else if (Input.GetButton("Fire3")){
+		} else if (Input.GetButtonDown("Fire3")){
 			grenade.fire(aim.position);
 		}
 	}

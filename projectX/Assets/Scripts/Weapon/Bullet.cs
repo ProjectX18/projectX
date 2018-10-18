@@ -29,11 +29,13 @@ public class Bullet : MonoBehaviour{
 		transform.position += transform.forward * speed * Time.fixedDeltaTime;
 	}
 
-	private void OnTriggerEnter(Collider other){
-		string enemyTag = CompareTag("Friendly") ? "Enemy" : "Friendly";
-		if (other.CompareTag(enemyTag)){
+	void OnTriggerEnter(Collider other){
+		string enemy = CompareTag("Friendly") ? "Enemy" : "Friendly";
+		if (other.CompareTag(enemy)){
 			other.GetComponent<Health>().takeDamage(damage);
+			Destroy(gameObject);
+		} else if (other.CompareTag("Environment")){
+			Destroy(gameObject);
 		}
-		Destroy(gameObject);
 	}
 }

@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Pointer : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
+public class Pointer : MonoBehaviour{
+	
+	private int floorMask;
+	public float camRayLen;
+	
+	void Start (){
+		floorMask = LayerMask.GetMask("Ground");
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void Update (){
+		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast(camRay, out hit, camRayLen, floorMask)){
+			transform.position = hit.point;
+		}
 	}
 }
