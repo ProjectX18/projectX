@@ -19,10 +19,13 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	void Update(){
-		checkFire();
+	void FixedUpdate(){
 		checkMove();
 		transform.LookAt(aim);
+	}
+
+	private void Update(){
+		checkFire();
 	}
 
 	private void checkFire(){
@@ -38,7 +41,7 @@ public class Player : MonoBehaviour{
 	}
 
 	private void checkMove(){
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 		transform.position += move.normalized * speed * Time.fixedDeltaTime;
 	}
 }
