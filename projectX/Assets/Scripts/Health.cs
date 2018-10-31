@@ -7,6 +7,8 @@ public class Health : MonoBehaviour{
 
 	public int life;
 	public bool dead;
+	public bool destroyOnDeath;
+	public Doable[] doOnDeath;
 
 	public int initialHp;
 	public int maxHp;
@@ -23,6 +25,9 @@ public class Health : MonoBehaviour{
 	// Use this for initialization
 	void Start(){
 		reset();
+		foreach (Doable boable in doOnDeath){
+			boable.addSender(gameObject);
+		}
 	}
 
 	// Update is called once per frame
@@ -54,6 +59,7 @@ public class Health : MonoBehaviour{
 	}
 
 	public void takeDamage(int damage){
+		if (dead) return;
 		lastHitTime = Time.timeSinceLevelLoad;
 		shield -= damage;
 		if (shield < 0){
@@ -63,6 +69,10 @@ public class Health : MonoBehaviour{
 				hp = 0;
 				life--;
 				dead = true;
+				foreach (Doable boable in doOnDeath){
+					boable.signal(gameObject);
+				}
+				if (destroyOnDeath) Destroy(gameObject);
 			}
 		}
 	}
