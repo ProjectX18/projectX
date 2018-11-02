@@ -6,7 +6,6 @@ using UnityEngine.UI;
 /// </summary>
 public class Health : MonoBehaviour{
 
-	public int life;
 	public bool dead;
 	public bool destroyOnDeath;
 	public Doable[] doOnDeath;
@@ -82,7 +81,6 @@ public class Health : MonoBehaviour{
 			shield = 0;
 			if (hp <= 0){
 				hp = 0;
-				if (life != int.MaxValue) life--;
 				dead = true;
 				if (explosion != null){
 					GameObject explode = Instantiate(explosion, explosionLocation.position, Quaternion.identity);
