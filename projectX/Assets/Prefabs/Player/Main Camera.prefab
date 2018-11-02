@@ -100,6 +100,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07509e61f93204b1d9972fadfecdb234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  pointer: {fileID: 0}
+  target: {fileID: 0}
   offset: {x: 0, y: 8, z: -6}

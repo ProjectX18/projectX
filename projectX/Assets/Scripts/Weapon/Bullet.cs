@@ -30,8 +30,7 @@ public class Bullet : MonoBehaviour{
 	}
 
 	void OnTriggerEnter(Collider other){
-		string enemy = CompareTag("Friendly") ? "Enemy" : "Friendly";
-		if (other.CompareTag(enemy)){
+		if (other.CompareTag(Global.enemyTag(other.gameObject))){
 			other.GetComponent<Health>().takeDamage(damage);
 			Destroy(gameObject);
 		} else if (other.CompareTag("Environment")){

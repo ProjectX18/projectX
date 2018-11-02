@@ -28,4 +28,11 @@ public class Pistol : Weapon{
 	public override bool autoFire(Vector3 target){
 		return false;
 	}
+
+	public override void aim(Vector3 target){
+		Global.aimingCam.enabled = true;
+		Vector3 direction = new Vector3(target.x - transform.position.x, 0, target.z - transform.position.z);
+		Ray ray = new Ray(transform.position, direction);
+		Debug.DrawRay(ray.origin, ray.direction);
+	}
 }

@@ -33,10 +33,17 @@ public class Player : MonoBehaviour{
 			primaryWeapon.fire(aim.position);
 		} else if (Input.GetButton("Fire1")){
 			primaryWeapon.autoFire(aim.position);
-		} else if (Input.GetButton("Fire2")){
+		}
+		if (Input.GetButton("Fire2")){
 			primaryWeapon.aim(aim.position);
-		} else if (Input.GetButtonDown("Fire3")){
+		} else{
+			Global.aimingCam.enabled = false;
+		}
+
+		if (Input.GetButtonUp("Fire3")){
 			grenade.fire(aim.position);
+		} else if (Input.GetButton("Fire3")){
+			grenade.aim(aim.position);
 		}
 	}
 

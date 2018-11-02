@@ -15,15 +15,18 @@ public class GameControl : MonoBehaviour{
 	void Start (){
 		Instantiate(camera);
 		GameObject playerInstance = Instantiate(player, startPoint);
-		Camera.main.GetComponent<CameraControl>().player = playerInstance;
-		Global.player = playerInstance;
-		playerInstance.GetComponent<Player>().aim = Instantiate(target, startPoint).transform;
-		Global.aiming = false;
-		Cursor.visible = false;
-	}
-	
-	void Update () {
+		GameObject targetInstance = Instantiate(target, startPoint);
+		GameObject aimingCam = Instantiate(camera);
 		
+		Global.player = playerInstance;
+		playerInstance.GetComponent<Player>().aim = targetInstance.transform;
+		Camera.main.GetComponent<CameraControl>().target = playerInstance;
+		aimingCam.GetComponent<Camera>().depth = 2;
+		aimingCam.GetComponent<CameraControl>().target = targetInstance;
+		aimingCam.GetComponent<AudioListener>().enabled = false;
+		aimingCam.tag = "Untagged";
+		Global.aimingCam = aimingCam.GetComponent<Camera>();
+		Cursor.visible = false;
 	}
 
 	private void pause(){
