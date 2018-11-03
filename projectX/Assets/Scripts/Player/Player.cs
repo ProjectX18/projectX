@@ -19,10 +19,13 @@ public class Player : MonoBehaviour{
 		}
 	}
 
-	void Update(){
-		checkFire();
+	void FixedUpdate(){
 		checkMove();
 		transform.LookAt(aim);
+	}
+
+	private void Update(){
+		checkFire();
 	}
 
 	private void checkFire(){
@@ -30,15 +33,22 @@ public class Player : MonoBehaviour{
 			primaryWeapon.fire(aim.position);
 		} else if (Input.GetButton("Fire1")){
 			primaryWeapon.autoFire(aim.position);
-		} else if (Input.GetButton("Fire2")){
+		}
+		if (Input.GetButton("Fire2")){
 			primaryWeapon.aim(aim.position);
-		} else if (Input.GetButtonDown("Fire3")){
+		} else{
+			Global.aimingCam.enabled = false;
+		}
+
+		if (Input.GetButtonUp("Fire3")){
 			grenade.fire(aim.position);
+		} else if (Input.GetButton("Fire3")){
+			grenade.aim(aim.position);
 		}
 	}
 
 	private void checkMove(){
-		Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		Vector3 move = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 		transform.position += move.normalized * speed * Time.fixedDeltaTime;
 	}
 }
