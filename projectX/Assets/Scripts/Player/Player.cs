@@ -7,6 +7,7 @@ public class Player : MonoBehaviour{
 	public Weapon primaryWeapon;
 	public Weapon secondaryWeapon;
 	public Weapon grenade;
+	public Health health;
 
 	// Use this for initialization
 	void Start (){
@@ -17,14 +18,18 @@ public class Player : MonoBehaviour{
 		if (grenade != null){
 			grenade.tag = tag;
 		}
+
+		health = GetComponent<Health>();
 	}
 
 	void FixedUpdate(){
+		if (health.dead) return;
 		checkMove();
 		transform.LookAt(aim);
 	}
 
 	private void Update(){
+		if (health.dead) return;
 		checkFire();
 	}
 

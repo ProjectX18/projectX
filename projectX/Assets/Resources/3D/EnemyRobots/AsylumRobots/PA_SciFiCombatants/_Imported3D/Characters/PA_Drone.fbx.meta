@@ -9,12 +9,32 @@ ModelImporter:
     100006: PA_DroneBladeRight
     100008: PA_DroneWingLeft
     100010: PA_DroneWingRight
+    100012: Armature
+    100014: Bone
+    100016: Bone.spin.L
+    100018: Bone.spin.L_end
+    100020: Bone.spin.R
+    100022: Bone.spin.R_end
+    100024: Bone_end
+    100026: Camera
+    100028: Lamp
+    100030: PA_DroneCtrl
     400000: PA_Drone
     400002: //RootNode
     400004: PA_DroneBladeLeft
     400006: PA_DroneBladeRight
     400008: PA_DroneWingLeft
     400010: PA_DroneWingRight
+    400012: Armature
+    400014: Bone
+    400016: Bone.spin.L
+    400018: Bone.spin.L_end
+    400020: Bone.spin.R
+    400022: Bone.spin.R_end
+    400024: Bone_end
+    400026: Camera
+    400028: Lamp
+    400030: PA_DroneCtrl
     2300000: PA_Drone
     2300002: PA_DroneBladeLeft
     2300004: PA_DroneBladeRight
@@ -40,7 +60,13 @@ ModelImporter:
     7400014: PA_DroneSlowFromLeft_Clip
     7400016: PA_DroneExplode_Clip
     9500000: //RootNode
-  externalObjects: {}
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PA_DroneMat
+    second: {fileID: 2100000, guid: 9468cfbf407387c4d8fef60308588e42, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
@@ -344,7 +370,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 0
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -364,7 +390,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 0
