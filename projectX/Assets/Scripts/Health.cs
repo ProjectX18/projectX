@@ -35,13 +35,10 @@ public class Health : MonoBehaviour{
 	// Use this for initialization
 	void Start(){
 		reset();
-		foreach (Doable boable in doOnDeath){
-			boable.addSender(gameObject);
-		}
 	}
 
 	private void Update(){
-		canvas.rotation = Quaternion.Euler(0, 0, 0);
+		if (canvas != null) canvas.rotation = Quaternion.Euler(0, 0, 0);
 		healthBar.fillAmount = hp / (float) maxHp;
 		shieldBG.SetActive(maxShield != 0);
 		shieldBar.fillAmount = shield / maxShield;

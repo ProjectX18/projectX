@@ -6,7 +6,8 @@ public class Doable : MonoBehaviour{
 	/// <summary>
 	/// a list of senders. helpful when waiting for one signal from each sender
 	/// </summary>
-	public List<GameObject> senders;
+	public List<GameObject> senders= new List<GameObject>();
+	protected List<GameObject> signaledFrom = new List<GameObject>();
 
 	/// <summary>
 	/// add a sender
@@ -24,7 +25,17 @@ public class Doable : MonoBehaviour{
 	/// </summary>
 	/// <param name="sender">signal sender</param>
 	/// <returns>signal is processed</returns>
-	public virtual bool signal(GameObject sender){
+	public bool signal(GameObject sender){
+		if (!signaledFrom.Contains(sender)){
+			signaledFrom.Add(sender);
+		}
+		if (senders.Count > 0 && senders.Count != signaledFrom.Count) return false;
+		signaledFrom.Clear();
+		action();
 		return true;
+	}
+
+	public virtual void action(){
+		throw new System.NotImplementedException();
 	}
 }

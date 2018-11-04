@@ -7,6 +7,7 @@ public class GameControl : MonoBehaviour{
 	public GameObject player;
 	public GameObject target;
 	public GameObject camera;
+	public GameObject miniMapCamera;
 	
 	[Header("Points")]
 	public CheckPoint[] checkPoints;
@@ -14,7 +15,7 @@ public class GameControl : MonoBehaviour{
 	
 	public GameObject pauseMenu;
 	public GameObject deathMenu;
-	private bool paused = false;
+	private bool paused;
 
 	#region initialization
 
@@ -24,19 +25,27 @@ public class GameControl : MonoBehaviour{
 	}
 	
 	private void playerInitialize(){
-		Instantiate(camera);
-		GameObject playerInstance = Instantiate(player, checkPoints[0].transform);
-		GameObject targetInstance = Instantiate(target, checkPoints[0].transform);
+		CameraControl mainCamera = Instantiate(camera).GetComponent<CameraControl>();
+		GameObject miniMap = Instantiate(miniMapCamera);
+		GameObject playerInstance = Instantiate(player, checkPoints[0].transform.position, Quaternion.identity);
+		GameObject targetInstance = Instantiate(target, checkPoints[0].transform.position, Quaternion.identity);
 		GameObject aimingCam = Instantiate(camera);
 		
 		Global.player = playerInstance;
 		playerInstance.GetComponent<Player>().aim = targetInstance.transform;
-		Camera.main.GetComponent<CameraControl>().target = playerInstance;
-		aimingCam.GetComponent<Camera>().depth = 2;
+		
+		mainCamera.target = playerInstance;
+		
+		miniMap.GetComponent<CameraControl>().target = playerInstance;
+		float width = 0.4f * Screen.height / Screen.width;
+		miniMap.GetComponent<Camera>().rect = new Rect(1 - width, 0.6f, width, 0.4f);
+		
+		aimingCam.GetComponent<Camera>().depth = 0;
 		aimingCam.GetComponent<CameraControl>().target = targetInstance;
 		aimingCam.GetComponent<AudioListener>().enabled = false;
 		aimingCam.tag = "Untagged";
 		Global.aimingCam = aimingCam.GetComponent<Camera>();
+		
 		Cursor.visible = false;
 	}
 
@@ -50,7 +59,7 @@ public class GameControl : MonoBehaviour{
 	#endregion
 
 	private void Update(){
-		if (Input.GetButtonDown("Pause")) ;
+		if (Input.GetButtonDown("Pause")) pause();
 	}
 
 	private void pause(){

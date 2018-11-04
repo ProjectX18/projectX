@@ -10,7 +10,6 @@ public class Gate : Doable{
 	public bool close = true;
 	private Vector3[] openPos;
 	private Vector3[] closePos;
-	private List<GameObject> signaledFrom = new List<GameObject>();
 	private int length;
 
 	// Use this for initialization
@@ -35,14 +34,7 @@ public class Gate : Doable{
 		}
 	}
 
-	public override bool signal(GameObject sender){
-		if (!signaledFrom.Contains(sender)){
-			signaledFrom.Add(sender);
-		}
-
-		if (senders.Count != signaledFrom.Count) return false;
-		signaledFrom.Clear();
+	public override void action(){
 		close = !close;
-		return true;
 	}
 }
