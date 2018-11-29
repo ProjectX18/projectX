@@ -1,47 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
 
-    public Transform player;
-    [SerializeField] float speed = 5f;
-    [SerializeField] float radius = 20f;
-    [SerializeField] float stopDistance = 5f;
+    [SerializeField] float speed;
+    [SerializeField] float chaseRadius;
+    [SerializeField] float stunTime;
+	[SerializeField] Saw saw;
+	private NavMeshAgent navAgent;
+
+	private Vector3 target;
 	// Use this for initialization
-	void Start () {
-        player = GameObject.FindGameObjectWithTag("Friendly").transform;
+	void Start (){
+		target = transform.position;
+		saw.tag = tag;
+		navAgent = GetComponent<NavMeshAgent>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (InRange() && !TooClose())
-            Chase();
+		GameObject enemy = Global.nearestEnemyInSight(gameObject, chaseRadius);
+		if (enemy != null) target = enemy.transform.position;
+		if (Time.timeSinceLevelLoad > stunTime + saw.lastDamageTime){
+//			navAgent.SetDestination(target); //currently does not work
+			Chase();
+		}
+	}
+	
+	void Chase() {
+		float diffx = target.x - transform.position.x;
+		float diffz = target.z - transform.position.z;
+		transform.Translate(new Vector3(diffx, 0, diffz).normalized * speed * Time.fixedDeltaTime, Space.World);
 	}
 
-    void Chase()
-    {
-        float diffx = player.position.x - transform.position.x;
-        float diffz = player.position.z - transform.position.z;
-        transform.Translate(new Vector3(diffx, 0, diffz).normalized * speed * Time.fixedDeltaTime, Space.World);
-    }
-
-    bool TooClose()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        return distanceToPlayer < stopDistance;
-    }
-
-    bool InRange()
-    {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        return distanceToPlayer < radius;
-    }
-
-    private void OnDrawGizmosSelected ()
-    {
+    private void OnDrawGizmosSelected () {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-        Gizmos.DrawWireSphere(transform.position, stopDistance);
+        Gizmos.DrawWireSphere(transform.position, chaseRadius);
+	    Gizmos.DrawWireSphere(transform.position, speed);
     }
 }

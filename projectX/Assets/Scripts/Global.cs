@@ -14,11 +14,16 @@ public static class Global{
 		return self.CompareTag("Friendly") ? "Enemy" : "Friendly";
 	}
 
+	public static bool isEnemy(GameObject target, GameObject self){
+		return target.CompareTag(enemyTag(self)) && target.GetComponent<Health>() != null;
+	}
+
 	public static GameObject nearestEnemyInSight(GameObject self, float maxDistance){
 		float shortestDistance = float.PositiveInfinity;
 		GameObject nearestEnemy = null;
 		foreach (GameObject enemy in findEnemies(self)){
 			if (!inSight(self, enemy, maxDistance)) continue;
+			if (enemy.GetComponent<Health>() == null) continue;
 			float distance = Vector3.Distance(self.transform.position, enemy.transform.position);
 			if (distance < shortestDistance){
 				shortestDistance = distance;

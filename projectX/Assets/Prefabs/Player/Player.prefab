@@ -1007,7 +1007,7 @@ MonoBehaviour:
   destroyOnDeath: 0
   doOnDeath: []
   explosion: {fileID: 1976843018331464, guid: db624dd2a1c3c4c75a3f1f73af87e54b, type: 2}
-  explosionLocation: {fileID: 0}
+  explosionLocation: {fileID: 4997788522517958}
   canvas: {fileID: 0}
   healthBar: {fileID: 114492018989918788}
   shieldBar: {fileID: 114933151417236710}

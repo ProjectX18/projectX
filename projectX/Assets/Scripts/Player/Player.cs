@@ -29,7 +29,10 @@ public class Player : MonoBehaviour{
 	}
 
 	private void Update(){
-		if (health.dead) return;
+		if (health.dead){
+			Time.timeScale = 0;
+			return;
+		}
 		checkFire();
 	}
 

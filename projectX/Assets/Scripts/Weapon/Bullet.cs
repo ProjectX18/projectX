@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour{
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.CompareTag(Global.enemyTag(gameObject))){
+		if (Global.isEnemy(other.gameObject, gameObject)){
 			other.GetComponent<Health>().takeDamage(damage);
 			Destroy(gameObject);
 		} else if (other.CompareTag("Environment")){
